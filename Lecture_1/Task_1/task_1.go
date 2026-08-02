@@ -17,9 +17,18 @@ func main() {
 	}
 	defer conn.Close()
 
+	_, err := conn.Write([]byte("Hello"))
+	if err != nil {
+		print("AAAA ERROR!!!")
+		return
+	}
+
 	buffer := make([]byte, 100)
-	conn.Write([]byte("Hello"))
-	le, _ := conn.Read(buffer)
+	le, err := conn.Read(buffer)
+	if err != nil {
+		print("AAA ERROR!!!")
+		return
+	}
 
 	print(string(buffer[:le]))
 }
