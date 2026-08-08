@@ -52,6 +52,7 @@ func recur_protocol_parse(conn *net.UDPConn, send_buffer []byte, receive_buffer 
 			for new_data := range slices.Chunk(bytes_of_fragment_ids, 2) {
 				// set new N
 				N += 1
+				put_request_id(send_buffer, N)
 				copy(send_buffer[payload_start:query_size], new_data)
 				_, err = conn.Write(send_buffer[:query_size])
 				if err != nil {
