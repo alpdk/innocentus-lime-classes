@@ -29,7 +29,7 @@ func main() {
 
 	setup_request(header_buffer)
 
-	addres_str := strings.Split("coursens.innolime.dev", ".")
+	addres_str := strings.Split("msg.innolime.dev", ".")
 	body_buffer := []byte{}
 
 	for _, data_str := range addres_str {
@@ -39,7 +39,7 @@ func main() {
 
 	body_buffer = append(body_buffer, 0)
 
-	var record uint16 = 0x0001
+	var record uint16 = 0x0010
 	var class_code uint16 = 0x0001
 
 	request_buffer := append(header_buffer, body_buffer...)
@@ -73,14 +73,7 @@ func main() {
 	}
 
 	receive_query_buffer := receive_buffer[(len(request_buffer) + 12):]
+	len_data := int(receive_query_buffer[0])
 
-	for i, value := range receive_query_buffer {
-		print(value)
-
-		if i < 3 {
-			print(".")
-		} else {
-			break
-		}
-	}
+	print(string(receive_query_buffer[1:(1 + len_data)]))
 }
